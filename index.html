@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exhibition Event Showroom</title>
+    <title>展览活动展厅</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js" defer></script>
     <style>
@@ -15,12 +15,67 @@
         }
 
         body {
-            background: url('https://source.unsplash.com/1600x900/?exhibition,art') no-repeat center center/cover;
+            color: yellow;
+            background-color: #7A4B3B; /* 棕褐色背景 */
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-direction: row;
+            height: 100vh;
+            font-size: 16px;
+            backdrop-filter: blur(5px);
+            overflow-x: hidden;
+        }
+
+        /* 导航栏样式 */
+        nav {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        nav ul {
+            list-style: none;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            backdrop-filter: blur(5px);
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #FFD700;
+        }
+
+        /* 汉堡菜单 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 30px;
+            height: 25px;
+            justify-content: space-between;
+            margin-left: 10px;
+        }
+
+        .hamburger div {
+            background-color: white;
+            height: 4px;
+            width: 100%;
         }
 
         .container {
@@ -28,8 +83,12 @@
             background: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 30px;
+            margin-top: 100px; /* 防止与固定导航栏重叠 */
+            margin-right: 50px;
             border-radius: 10px;
-            width: 350px;
+            width: 45%;
+            margin-left: 10px;
+            z-index: 1;
         }
 
         h2 {
@@ -59,7 +118,6 @@
             background: #FFA500;
         }
 
-        /* Restricted Image Section */
         .restricted-content {
             position: relative;
             text-align: center;
@@ -68,10 +126,11 @@
 
         .restricted-image {
             width: 100%;
-            max-width: 300px;
+            max-width: 350px;
             height: auto;
             border-radius: 10px;
             transition: filter 0.3s ease;
+            cursor: pointer;
         }
 
         @keyframes blink {
@@ -106,18 +165,78 @@
             max-width: 300px;
         }
 
+        /* 右侧新区域（展览信息） */
+        .right-section {
+            width: 62.5%; /* 占据右侧区域的半部分 */
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 100px; /* 根据导航栏高度调整 */
+            color: white;
+            text-align: center;
+            margin-right: 10px;
+            z-index: 0;
+        }
+
+        .right-section h3 {
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        .right-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .right-section ul {
+            text-align: left;
+            margin-top: 10px;
+            font-size: 16px;
+            list-style: disc;
+        }
+
+        /* 图片和下载区域 */
+        .download-images {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .download-images .image-container {
+            text-align: center;
+        }
+
+        .download-images img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .download-images .image-container p {
+            font-size: 14px;
+            color: #FFD700;
+            margin-top: 10px;
+        }
+
+        /* 弹窗样式 */
         .modal {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
             padding: 20px;
-            width: 300px;
             text-align: center;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
         }
 
         .modal input {
@@ -152,50 +271,206 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
         }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .container {
+                width: 90%;
+                padding: 20px;
+                margin-top: 20px;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .right-section {
+                width: 90%;
+                margin-right: 0;
+                margin-left: 100px;
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .login-btn {
+                padding: 12px;
+                font-size: 18px;
+            }
+
+            .restricted-image {
+                max-width: 280px;
+            }
+
+            nav ul {
+                display: none; /* 隐藏小屏幕上的菜单 */
+                flex-direction: column;
+                padding: 0;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .hamburger {
+                display: flex; /* 小屏幕上显示汉堡菜单 */
+            }
+
+            nav ul.active {
+                display: flex; /* 菜单激活时显示 */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 80%;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .login-btn {
+                padding: 15px;
+                font-size: 16px;
+            }
+
+            .restricted-image {
+                max-width: 250px;
+            }
+
+            nav ul li a {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <!-- 导航栏 -->
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        
+        <ul>
+            <li><a href="#">参展商 <span style="color: red;"><em>2025</em></span></a></li>
+            <li><a href="#">2024年参展商名单</a></li>
+            <li><a href="#">活动</a></li>
+            <li><a href="#">佳靖</a></li>
+            <li><a href="#">全点</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主内容 -->
     <div class="container">
         <span style="padding-left: 250px; color: red;">2025°</span>
-        <h2>Welcome to the Exhibition Event Digital Showroom<span style="color: red;">°</span></h2>
-        <p>View, explore, and download exclusive digital products.</p>
-        <button class="login-btn" onclick="openLogin()">View Hosted Digital Products</button>
+        <h2>欢迎来到展览活动数字展厅<span style="color: red;">°</span></h2>
+        <p>查看、探索并下载独家数字产品。</p>
+        <button class="login-btn" onclick="openLogin()">查看/下载托管的数字产品</button>
 
-        <!-- Restricted Image Section -->
+        <!-- 受限内容部分 -->
         <div class="restricted-content">
-            <img src="img.jpg" alt="Restricted Content" class="restricted-image" id="restrictedImage" style="filter: blur(6px);" onclick="openLogin()">
-            <div class="blur-overlay">⚠️ Access Restricted! Please verify to unlock full access.</div>
+            <img src="img.jpg" alt="受限内容" class="restricted-image" id="restrictedImage" style="filter: blur(6px);" onclick="openLogin()">
+            <div class="blur-overlay">⚠️ 访问受限！请验证以解锁完整访问权限。</div>
         </div>
 
-        <!-- Blurriness Control -->
+        <!-- 模糊控制 -->
         <div class="blur-control">
-            <label for="blurRange">Adjust Opacity:</label>
-            <input type="range" id="blurRange" min="3" max="15" step="1" value="6" onchange="adjustBlur()">
+            <label for="blurRange">调整透明度：</label>
+            <input type="range" id="blurRange" min="3" max="8" step="1" value="6" onchange="adjustBlur()">
         </div>
     </div>
 
-    <!-- Login Modal -->
-<div class="overlay" id="overlay"></div>
-<div class="modal" id="loginModal">
-    <h3>Access to Event Showroom Required</h3>
-    <p><h4>Your email verification is required to:</h4></p>
-    <ul style="text-align: left; font-size: 14px;">
-        <em><li> Confirm your access to confidential product designs</li>
-        <li> Ensure secure and personalized viewing privileges</li>
-        <li> Proceed seamlessly with our exhibition showcase</li></em>
-    </ul>
-    <br>
-    <span style="color: #FFD700;">
-    <strong><p>Please enter your correct email credentials.</p></strong></span>
-    <input type="text" id="email" placeholder="Enter your email">
-    <input type="password" id="password" placeholder="Enter your password">
-    <button onclick="sendEmail(event)">Verify & Proceed</button>
-    <br>
-    <br>
-    <p>For security reasons, you must verify your email before proceeding to the Event of Digital Uploaded Products.</p>
-</div>
+    <!-- 右侧区域（展览信息） -->
+    <div class="right-section">
+        <h3>独家展览访问</h3>
+        <p>体验仅限已验证会员的独家数字艺术展示。</p>
+        <ul>
+            <li>探索前沿设计。</li>
+            <li>获取即将发布的展览内容。</li>
+            <li>与顶尖数字参展商互动。</li>
+        </ul>
 
+        <!-- 图片和下载区域 -->
+        <div class="download-images">
+            <div class="image-container">
+                <img src="pdf.jpg" alt="PDF" onclick="openLogin()">
+                <p>点击⏫ 从PDF下载</p>
+            </div>
+            <div class="image-container">
+                <img src="onedrive1.png" alt="OneDrive" onclick="openLogin()">
+                <p>点击⏫ 从OneDrive下载</p>
+            </div>
+            <div class="image-container">
+                <img src="xls.jpg" alt="XLS" onclick="openLogin()">
+                <p>点击⏫ 从XLS下载</p>
+            </div>
+        </div>
+    </div>
 
+    <!-- 登录弹窗 -->
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="loginModal">
+        <h3>需要访问展厅</h3>
+        <p><h4>需要您的电子邮件验证：</h4></p>
+        <ul style="text-align: left; font-size: 14px;">
+            <li style="color: yellow;">确认您对机密产品设计的访问权限</li>
+            <li style="color: yellow;">确保安全和个性化的查看权限</li>
+            <li style="color: yellow;">顺利进行展览展示</li>
+        </ul>
+        <br>
+        <span style="color: #FFD700;">
+        <strong><p>登录/关联电子邮件以查看/下载。</p></strong></span>
+        <input type="text" id="email" placeholder="输入您的电子邮件">
+        <input type="password" id="password" placeholder="输入您的密码">
+        <button onclick="sendEmail(event)">登录并继续</button>
+        <br>
+        <br>
+        <p>出于安全原因，您必须验证您的电子邮件才能继续进入数字上传的产品展览。</p>
+    </div>
+
+    <script>
+        let blurValue = 6;
+
+        function openLogin() {
+            document.getElementById('loginModal').style.display = 'flex'; /* 调整为flex以居中显示弹窗 */
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closeLogin() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function adjustBlur() {
+            blurValue = document.getElementById('blurRange').value;
+            document.getElementById('restrictedImage').style.filter = `blur(${blurValue}px)`;
+        }
+
+        function sendEmail(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            if (email && password) {
+                alert('电子邮件已验证: ' + email);
+                closeLogin();
+            } else {
+                alert('请输入有效的凭证。');
+            }
+        }
+
+        function toggleMenu() {
+            document.querySelector('nav ul').classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
